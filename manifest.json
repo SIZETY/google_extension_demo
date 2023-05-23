@@ -1,0 +1,52 @@
+{
+	"manifest_version": 3,
+	"name": "sizety",
+	"version": "1.0.0",
+	"description": "sizety",
+	"icons": {
+		"16": "images/icon.png",
+		"32": "images/icon.png",
+		"48": "images/icon.png",
+		"128": "images/icon.png"
+	},
+	"permissions": [
+		"contextMenus",
+		"storage",
+		"tabs",
+		"tts",
+		"notifications",
+		"pageCapture"
+	],
+	"action": {
+		"default_popup": "html/popup.html"
+	},
+	"background": {
+		"service_worker": "js/background.js",
+		"type": "module"
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["js/content.js"],
+			"css": ["css/global.css"],
+			"run_at": "document_start"
+		},
+		{
+			"matches": ["*://*.youtube.com/*"],
+			"js": ["js/iframe.js"],
+			"run_at": "document_end",
+			"all_frames": true
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": ["images/*.png"],
+			"matches": ["<all_urls>"]
+		}
+	],
+	"options_ui": {
+		"page": "html/options.html",
+		"open_in_tab": true
+	},
+	"default_locale": "zh_CN"
+}
